@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="HelloWorld" default="compile" basedir=".">
+<property name="src.dir" value="src"/>
+<property name="build.dir" value="build"/>	
+<property name="dist.dir" value="dist" />
+	
+	<target name="init" description="Creates temporary directories">
+		<mkdir dir="${build.dir}/classes" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src.dir}" destdir="${build.dir}/classes" includeantruntime="false" />
+	</target>
+	
+	<target name="clean" depends="init" description="Removes temporary directories">
+		<delete dir="${build.dir}" />
+		<delete dir="bin" failonerror="false" />
+		<delete dir="${dist.dir}" failonerror="false" />
+	<!--	<delete file="HelloWorld.jar"/> -->
+	 </target>
+<!--		
+<target name ="makejar" description="Create a jar">
+    <jar jarfile="HelloWorld.jar" includes="*.class" basedir="bin"/>
+</target>
+-->
+		
+<target name="run" depends="compile">
+	<java classname="usa.texas.austin.HelloWorld" failonerror="true" fork="true">
+		<classpath>
+			<pathelement location="${build.dir}/classes" />
+			<pathelement location="${build.dir}/.." />
+		</classpath>
+	</java>
+</target>
+
+	
+</project>	

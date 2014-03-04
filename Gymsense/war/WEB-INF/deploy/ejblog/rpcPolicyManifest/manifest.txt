@@ -1,0 +1,3 @@
+# Module ejblog
+# RPC service class, partial path of RPC policy file
+ejblog.client.GreetingService, 32B858BFFACAE06B79E980E902204586.gwt.rpc

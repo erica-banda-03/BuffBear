@@ -1,0 +1,2 @@
+serviceClass: gymsense.client.GreetingService
+path: FE1098A18F1858178D2BE8DE2342AE1B.gwt.rpc

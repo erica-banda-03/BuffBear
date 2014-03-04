@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>GymsenseServlet</servlet-name>
+    <servlet-class>gymsense.GymsenseServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GymsenseServlet</servlet-name>
+    <url-pattern>/gymsense</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>OfyGymsenseServlet</servlet-name>
+        <servlet-class>gymsense.OfyGymsenseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OfyGymsenseServlet</servlet-name>
+        <url-pattern>/ejblog/ofy</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>gymsense.OfyGymsenseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    
+    <filter>
+        <filter-name>ObjectifyFilter</filter-name>
+        <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+        <filter-name>ObjectifyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>CronServlet</servlet-name>
+		<servlet-class>gymsense.CronServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CronServlet</servlet-name>
+		<url-pattern>/cron/dailypost</url-pattern>
+	</servlet-mapping>
+	
+	 <servlet>
+        <servlet-name>EmailServlet</servlet-name>
+        <servlet-class>gymsense.EmailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmailServlet</servlet-name>
+        <url-pattern>/subscribers</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RemoveEmailServlet</servlet-name>
+        <servlet-class>gymsense.RemoveEmailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveEmailServlet</servlet-name>
+        <url-pattern>/unsubscribe</url-pattern>
+    </servlet-mapping>
+  
+  <!-- Default page to serve -->
+  
+  <welcome-file-list>
+        <welcome-file>home.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

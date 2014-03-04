@@ -1,0 +1,2 @@
+serviceClass: ejblog.client.GreetingService
+path: 32B858BFFACAE06B79E980E902204586.gwt.rpc

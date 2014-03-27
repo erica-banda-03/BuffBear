@@ -1,0 +1,42 @@
+
+body{
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	margin: 30px 40px 20px; 
+	background-color: #444444; 
+	/*background-image: url("http://vectorbeast.com/wp-content/uploads/2013/07/abstract-background.jpg"); 
+	background-repeat: no-repeat;
+	background-size: cover; */
+}
+
+h1{
+	text-align: center;
+	color: white;
+}
+div{
+	display: block;
+}
+
+form p, form label{
+	color: #fff;
+	padding: 0 0 10px;	
+	font-weight: bold;
+	border-radius: 5px; 
+	
+}
+
+form-col{
+	width: 206px;
+	
+}
+
+#field{
+	border-radius: 5px;
+	font-size: 1.125rem;
+	background-color: #444444;
+	color: #969696;
+	border-top: 2px solid rgba(0,0,0,0.8);
+	border-left: 2px solid rgba(0,0,0,0.8);
+	border-bottom: none;
+	border-top: none;
+	padding: 14px 10px;
+}

@@ -14,8 +14,16 @@ public class User implements Serializable{
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	Key email;	
-	//private String address;
 	private String name;
+	private String password;
+	private int feetHeight;
+	private int inchHeight;
+	private int weight;
+	private int age;
+	private String gender;
+	private Schedule mySchedule;
+	private Plan myPlan;
+	private Location myLocation;
 	
 	
 	public User(){}
@@ -40,5 +48,11 @@ public class User implements Serializable{
 	public Key getEmail(){
 		return email;
 	}
+	
+	public User(String name, String email, String password, int feetHeight, int inchHeight, String weight, String gender, Schedule mySchedule, Plan myPlan, Location myLocation){
+		 
+		// update all these using the values obtained from servelet and jsp
+ }
+
 	
 }

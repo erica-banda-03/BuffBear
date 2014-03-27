@@ -71,6 +71,15 @@
         <url-pattern>/unsubscribe</url-pattern>
     </servlet-mapping>
   
+  <servlet>
+        <servlet-name>RegisterUser</servlet-name>
+        <servlet-class>gymsense.RegisterUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterUser</servlet-name>
+        <url-pattern>/RegisterUser</url-pattern>
+    </servlet-mapping>
+  
   <!-- Default page to serve -->
   
   <welcome-file-list>

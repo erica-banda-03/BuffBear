@@ -72,18 +72,17 @@
     </servlet-mapping>
   
   <servlet>
-        <servlet-name>RegisterUser</servlet-name>
+        <servlet-name>RegisterUserServlet</servlet-name>
         <servlet-class>gymsense.RegisterUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegisterUser</servlet-name>
+        <servlet-name>RegisterUserServlet</servlet-name>
         <url-pattern>/RegisterUser</url-pattern>
     </servlet-mapping>
   
   <!-- Default page to serve -->
-  
   <welcome-file-list>
-        <welcome-file>home.jsp</welcome-file>
+        <welcome-file>mapping.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

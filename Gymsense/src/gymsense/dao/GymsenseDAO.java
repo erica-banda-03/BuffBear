@@ -39,32 +39,43 @@ public enum GymsenseDAO {
 			}
 		}
 		
-		public String add(String name, String address){
-				Key key = KeyFactory.createKey(User.class.getSimpleName(), address);
-				User subscriber = new User();
-				subscriber.setName(name);
-				subscriber.setEmail(key);
+		public String add(String firstName, String lastName, String email, String birthMonth, String birthDay, String birthYear, String sex, String workoutType, String intensity, String weight, String heightInches, String heightFeet){
+				Key key = KeyFactory.createKey(User.class.getSimpleName(), email);
+				User user = new User();
+				user.setFirstName(firstName);
+				user.setLastName(lastName);
+				user.setEmail(key);
+				//user.setPassword(password);
+				user.setBirthMonth(birthMonth);
+				user.setBirthDay(birthDay);
+				user.setBirthYear(birthYear);
+				user.setHeightFeet(heightFeet);
+				user.setHeightInches(heightInches);
+				user.setSex(sex);
+				user.setWeight(weight);
+				user.setWorkoutType(workoutType);
+				user.setIntensity(intensity);
 				
 				synchronized(this){
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				try{
-					pm.makePersistent(subscriber);
+					pm.makePersistent(user);
 				}
 				finally{
 					pm.close();
 				}
 				}
-				return (subscriber.getEmail().getName());
+				return (user.getEmail().getName());
 			}
 		
-		public void update(String userName, String address){
-				User result;
+		public void updateWeight(String weight, String address){
+				User user;
 				synchronized(this){
 					PersistenceManager pm = PMF.get().getPersistenceManager();
 					Key k = KeyFactory.createKey(User.class.getSimpleName(), address);
 					try{
-					result = pm.getObjectById(User.class, k);
-					result.setName(userName);
+					user = pm.getObjectById(User.class, k);
+					user.setWeight(weight);
 					}
 					finally{
 					pm.close();
@@ -72,30 +83,60 @@ public enum GymsenseDAO {
 				}
 			}
 		
+		public void updateWorkoutType(String workoutType, String address){
+			User user;
+			synchronized(this){
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+				Key k = KeyFactory.createKey(User.class.getSimpleName(), address);
+				try{
+				user = pm.getObjectById(User.class, k);
+				user.setWorkoutType(workoutType);
+				}
+				finally{
+				pm.close();
+				}
+			}
+		}
+		
+		public void updateIntensity(String intensity, String address){
+			User user;
+			synchronized(this){
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+				Key k = KeyFactory.createKey(User.class.getSimpleName(), address);
+				try{
+				user = pm.getObjectById(User.class, k);
+				user.setIntensity(intensity);
+				}
+				finally{
+				pm.close();
+				}
+			}
+		}
+		
 		public void remove(String address){
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Key k = KeyFactory.createKey(User.class.getSimpleName(), address);
-			User subscriber;
+			User user;
 			try{
-				subscriber = pm.getObjectById(User.class, k);
-				pm.deletePersistent(subscriber);
+				user = pm.getObjectById(User.class, k);
+				pm.deletePersistent(user);
 			}
 			finally{
 				pm.close();
 			}
 		}
 		
-		public User getSubscriber(String address){
+		public User getuser(String address){
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Key k = KeyFactory.createKey(User.class.getSimpleName(), address);
-			User subscriber = null;
+			User user = null;
 			try{
-				subscriber = pm.getObjectById(User.class, k);
+				user = pm.getObjectById(User.class, k);
 			}
 			finally{
 				pm.close();
 			}
-			return subscriber;
+			return user;
 		}
 		
 }

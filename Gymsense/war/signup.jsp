@@ -8,11 +8,15 @@
   	
   	
   	<script type="text/javascript">
-  	function validatePassword(){
-		var x=document.forms["register"]["password"].value;
-		var y=document.forms["register"]["confirmPassword"].value;
-		if (x !=y ){
-		  alert("Confirm password does not match.");
+  	function validateForm(){
+		var a=document.forms["register"]["firstName"].value;
+		var b=document.forms["register"]["lastName"].value;
+		var c=document.forms["register"]["email"].value;
+		var d=document.forms["register"]["weight"].value;
+		
+		
+		if (a==null || a=="" || b==null || c==null || d==null ){
+		  alert("All fields must be filled out!");
 		  return false;
 		}
 	}
@@ -22,38 +26,46 @@
   
   <body>
 <h1>Gymsense Sign-up</h1>
-	<form name="register" action="/RegisterUser" method="post">
-	<div class="form-row" style="height: 244px; ">
-		<div class="form-col">
-			<div class="from-section" style="width: 264px; ">
-				<label for="user-firstname">Name</label>
+	<form name="register" action="/RegisterUser" onsubmit="return validateForm()" method="post">
+		
+			<div class="form-section">
 				
-				<div class="field">
-					<input type="text"  name="firstName" id="user-firstname" placeholder="First" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="" style="background-color: Silver; ">
-				</div>
+				<div class="left-col">
+					<label for="user-firstname">Name</label>
+					<div class="field">
+						<input type="text"  name="firstName" id="user-firstname" placeholder="First" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="">
+					</div>
+					
+					<div class="field">	
+						<input type="text" name="lastName" id="user-lastname" placeholder="Last" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="" >
+					</div>
+					
+					<label for="user-email">Email Address</label>
+					(must be a gmail account)
+					<div class="field">
+						<input type="text" name="email" id="user-email" placeholder="me@gmail.com" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;email&quot;}" value="" autocomplete="off">
+					</div>
+					
+					<!--  
+					<label for="password">Password</label>
+					<div class="field"><input type="text" name="password" id="password"  value="">
+					</div>
+					<label for="confirmpassword">Confirm Password</label>
+					<div class="field"><input type="text" name="confirmPassword" id="confirmPassword"  value="">
+					</div>
+					-->
+					
+					<label for="weight">Weight</label>
+					<div class="field"><input type="text" name="weight" id="weight" placeholder="in pounds" value="">
+					</div>
 				
-				<div class="field">	
-				<input type="text" name="lastName" id="user-lastname" placeholder="Last" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="" style="background-color: Silver; ">
-				</div>
 				
-				<label for="user-email">Email Address</label>
-				<div class="field"><input type="text" name="email" id="user-email" placeholder="me@gmail.com" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;email&quot;}" value="" autocomplete="off">
-				</div>
-				
-				<label for="password">Password</label>
-				<div class="field"><input type="text" name="password" id="password"  value="">
-				</div>
-				<label for="confirmpassword">Confirm Password</label>
-				<div class="field"><input type="text" name="confirmPassword" id="confirmPassword"  value="">
-				</div>
-				
-				<label for="password">Weight</label>
-				<div class="field"><input type="text" name="weight" id="weight" placeholder="in pounds" value="">
-				
-			<div class="birthday">
-				<label for="birthday">Birthday</label><br>
+
+				<label for="birthday">Birthday</label>
+				<div class="birthday">
 				
 				<select id="month" name="month">
+					<option></option>
 					<option value = "1">January</option>
 					<option value = "2">February</option>
 					<option value = "3">March</option>
@@ -70,6 +82,7 @@
 				
 				<!-- Day dropdown -->
 			<select name="day" id="day" size="1">
+				<option></option>
 			    <option value="01">01</option>
 			    <option value="02">02</option>
 			    <option value="03">03</option>
@@ -104,6 +117,7 @@
 			</select>
 				
 				<select id="year" name="year">
+					<option></option>
 					<option value="2007">2007</option>
 					<option value="2006">2006</option>
 					<option value="2005">2005</option>
@@ -173,14 +187,21 @@
 					<option value="1941">1941</option>
 					<option value="1940">1940</option>
 				</select>	
-	</div>
+			</div>
+			</div>	
 				
-				
+			<div class="center-col">	
 				<div>
 				<label for="workout">Workout Type</label><br>
 				<input type="radio" name="workout" value="Cardio">Cardio<br>
 				<input type="radio" name="workout" value="Weight-loss">Weight-loss<br>
 				<input type="radio" name="workout" value="Weightlifting">Weightlifting
+				</div>
+				
+				<div>
+				<label for="intensity">Workout Intensity</label><br>
+				<input type="radio" name="intensity" value="">Heavy<br>
+				<input type="radio" name="intensity" value="Light">Light<br>
 				</div>
 				
 				<div>
@@ -191,7 +212,7 @@
 				</div>
 				
 				<div>
-				<label for "Height">Height</label><br>
+				<label for="Height">Height</label><br>
 				<select id="feet" name="feet">
 				<option></option>
 				<option value = "3">3</option>
@@ -219,7 +240,8 @@
 				<option value = "12">12</option> 
 				</select>
 				</div>
-				
+				</div>
+			
 		<!--	<div class="time">
 				<label for="time">Workout Time Availability</label><br>
 				
@@ -283,11 +305,13 @@
 				</select>
 				
 			</div> -->
-		</div>
-	</div>
-		
-		<input type="submit" value="Submit" />
-		
+				
+				<div class="right-col">
+					<div>
+					<input type="submit" value="Submit" id="submit" />
+					</div>
+				</div>
+		</div>	
 	
 	</form>
 

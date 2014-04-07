@@ -1,18 +1,10 @@
-/** Add css rules here for your application. */
 body{
 	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-	border: 4px solid black;
-	border-radius: 4px;
-	margin: 30px 40px 20px;
-	background-color: #00CC66;
+	margin: 0px 0px 0px;
+	background-color: #FF3300;
 <!--	background-image: url("http://vectorbeast.com/wp-content/uploads/2013/07/abstract-background.jpg"); -->
 	background-repeat: no-repeat;
 	background-size: cover;
-}
-
-#pic{
-	margin-top: 20px;
-	text-align: center;
 }
 
 .button{
@@ -37,11 +29,9 @@ body{
 
 #subscription{
 	display:inline-block;
+	margin-top: 500px;
 }
 
-
-
-#history{} 
 
 #home{
 	margin-top: 15px;
@@ -49,6 +39,11 @@ body{
 }
 
 #signout{
+	float: right;
+	margin: -40px 5px 0px;
+}
+
+#signin{
 	float: right;
 	margin: -40px 5px 0px;
 }
@@ -64,29 +59,10 @@ body{
 	display: block;
 }
 
-#date{
-	text-align: right;
-	margin-top: 10px;
-}
-
-#submission{
-	margin-top: 140px;
-	width: 500px;
-	margin-left: auto ;
- 	margin-right: auto ;
- 	text-align: center;
-}
-
-#about{
-	padding: 10px 10px 5px;
-	text-align: center;
-	display: block;
-	color: white;
-}
 
 h1{
 	text-align: center;
-	height: 80px;
+	height: 150px;
 	display: block;
 	margin: 0px 0px 0px;
 	background-color:rgba(0,0,0,0.7);
@@ -95,24 +71,10 @@ h1{
 
 p1{
 	color: white;
-	font-size: 50px;
+	font-size: 100px;
 	font-weight: bold;
-	margin-top: 40px;
+	margin-top: 70px;
 	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-}
-
-p2{
-	font-size: 25px;
-	font-weight: bold;
-}
-	
-p3{
-	font-size: 25px;
-}
-
-#signin{
-	text-align: center;
-	margin-top: 20px;
 }
 
 .back-to-top {

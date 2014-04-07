@@ -12,6 +12,7 @@
  
 <html>
   <head>
+  	<title>Gymsense</title>
   	<link type="text/css" rel="stylesheet" href="Gymsense.css" />
   	
   	<script type="text/javascript">
@@ -49,7 +50,6 @@
 	</script>
 	
   </head>
- 
   <body>
   
   	<h1>
@@ -57,11 +57,6 @@
   	</h1>
  
 	<%
-    String blogPost = request.getParameter("blogPost");
-    if (blogPost == null) {
-        blogPost = "default";
-    }
-    pageContext.setAttribute("blogPost", blogPost);
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
     %>
@@ -70,77 +65,26 @@
     if (user != null) {
       pageContext.setAttribute("user", user);
 	%>
-	
-	<div id="signout">
-		<p>
-		<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="button">Sign out</a>
-		</p>
-	</div>
-	<div id="newpost">
-		<a href="newpost1.jsp" class="button">Create New Post</a>
-	</div>	
-<%
+		<div id="signout">
+			<p>
+			<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="button">Sign out</a>
+			</p>
+		</div>
+		<div id="newpost">
+			<a href="newpost1.jsp" class="button">Create New Post</a>
+		</div>	
+	<%
     } else {
-%>
-	<div id="signin">
-	
-	<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="button">Sign In</a>
-	</div>
-<%
+	%>
+		<div id="signin">
+		<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="button">Sign In</a>
+		</div>
+	<%
     }
-%>
+	%>
  
-<%
-    
-	ObjectifyService.register(Post.class);
-	List<Post> posts = ObjectifyService.ofy().load().type(Post.class).list();   
-	Collections.sort(posts,Collections.reverseOrder()); 
-	
-    if (posts.isEmpty()) {
-        %>
-      <!--   <div><p>This blog has no posts.</p></div> -->
-        <%
-    } else {
-    	int counter = 0;
         
-        for (Post post : posts) {
-        	pageContext.setAttribute("post_title", post.getTitle());
-            pageContext.setAttribute("post_content", post.getContent());
-            pageContext.setAttribute("post_date", post.getDate());
-            counter += 1;
-            
-            if (post.getUser() != null) {
-            
-            	if (counter <= 4) {
-           
-                pageContext.setAttribute("post_user", post.getUser());
-                %>
-               		<div id="post"> <p><b>${fn:escapeXml(post_user.nickname)}</b>:</p>
-                <%
-                
-	            %>
-	           		<p2><div>${fn:escapeXml(post_title)} </div></p2>
-	           	<%
-	           	%>
-	           		<div>${fn:escapeXml(post_content)}</div>
-	            <%
-	            
-	            %>
-                <div id="date">Posted on <b>${fn:escapeXml(post_date)}</b> </div></div>
-                <%
-                }
-                
-            }
-            
-        }
-        
-    }
-			
-		 %>
-	        <div id="history">
-	        <a href="history1.jsp" class="back-to-top"><b>View all posts</b></a>
-			</div>
-			
+       		
 			
 				<div id= "subscription" >
 				<form name="subscribe" action="/subscribers" onsubmit="return validateForm()" method="get">
@@ -157,11 +101,6 @@
 					<input type="submit" style="visibility:hidden" value="Remove Me" id="remove"/>
 				</form>
 				</div>
-			
-			
-        <%	
-				
-%>
  		
   </body>
 </html>

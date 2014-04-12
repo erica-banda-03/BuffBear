@@ -1,0 +1,176 @@
+body{
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 100px;
+	background-color: rgba(228, 78, 0, 1);
+
+<!--	background-image: url("http://vectorbeast.com/wp-content/uploads/2013/07/abstract-background.jpg"); -->
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
+
+<!-- top header-->
+h1{
+	text-align: center;
+	height: 150px;
+	display: block;
+	margin: 0px 50px 0px 0px;
+
+	background-color: rgba(228, 78, 0, 1);
+	<!--background-image:url("http://www.freeliquidtemplates.com/free-headers-for-websites/header10.jpg");-->
+}
+
+p1{
+	color: #FF6600;
+	font-size: 120px;
+	font-weight: bold;
+	margin-top: 70px;
+	margin-left: 100px;
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+
+#menu{
+	background-color: #FF6600;
+	display:block;
+	text-align: center;
+	top:0;
+	left:0;
+    bottom:0;
+	position:fixed;
+}
+
+#menuButton{
+	
+	display: block;
+	padding: 20px;
+	
+}
+
+.menuStyle{
+	text-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+
+#menuButton:hover{
+	background-color: rgba(255, 152, 76, 0.9);
+}
+
+#mainImage{
+	width: 100%;
+	display: block;
+}
+
+#hookEm{
+	width: 100%;
+	height: 80%;
+	margin-right: -15px;
+}
+
+div{
+	display: block;
+	text-align: center;
+}
+
+.button{
+	text-align: center;
+	background-color: rgba(255, 152, 76, 0.9);
+	padding: 6px;
+	width: 170px;
+	color: white;
+	text-decoration: none;
+	border: 2px solid white;
+    border-radius: 2px;
+}
+
+.button:hover {    
+    background-color: rgba(135, 132, 135, 0.50);
+}
+
+#map-canvas {
+        height: 80%;
+        margin-top: 20px;
+        margin-left: 110px;
+        margin-right: 30px;
+        margin-bottom: 20px
+        padding: 10px 10px 10px;
+        display: block;      
+}
+
+
+h2{
+	margin-top: 10px;
+	height: 100px;
+	text-align: center;
+	text-weight: bold;
+	color: white;
+}
+
+#subscription{
+	display:inline-block;
+	margin-top: 500px;
+	margin-left: 180px;
+}
+
+
+#home{
+	margin-top: 15px;
+	text-align: center;
+}
+
+#signout{
+	float: right;
+	margin: -40px 5px 0px;
+}
+
+#signin{
+	float: right;
+	margin: -40px 5px 0px;
+}
+
+#post{
+	color: white;
+	border: 3px solid black;
+	background-color: rgba(0,0,0,0.7);
+	margin: 30px 90px 30px;
+	text-align: left;
+	padding: 5px 20px ;
+	border-radius: 2px;
+	display: block;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 1em;
+    right: 0px;
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(235, 235, 235, 0.80);
+    font-size: 14px;
+    padding: 1em;
+}
+
+.back-to-top:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}
+
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}

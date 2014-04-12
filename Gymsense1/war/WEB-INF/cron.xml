@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+<cron>
+<url>/cron/dailypost</url>
+<description>Mail out daily new blog posts</description>
+<schedule>every day 17:00</schedule>
+<!-- <schedule>every 2 minutes</schedule>-->
+<timezone>America/Mexico_City</timezone>
+</cron> 
+</cronentries>

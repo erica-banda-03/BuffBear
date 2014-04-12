@@ -1,0 +1,41 @@
+body{
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	background-image:url("https://www.utexas.edu/sites/default/files/files/DecoTower1280x800.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+h1{
+	margin-left: -15px;
+	font-weight: bold;
+	font-size: 180px;
+	margin-top: 50px;
+}
+
+#text{
+	text-align: center;
+}
+
+
+
+div{
+	padding: 0px 60px 0px;
+	display: inline-block;
+}
+
+
+
+.button{
+	background-color: rgba(235, 235, 235, 0.80);
+	padding: 6px;
+	width: 200px;
+	color: #000000;
+	text-decoration: none;
+	border: 2px solid rgba(135, 135, 135, 0.50);
+    border-radius: 2px;
+}
+
+.button:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}

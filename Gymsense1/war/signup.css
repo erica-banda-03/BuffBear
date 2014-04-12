@@ -1,0 +1,72 @@
+
+body{
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	margin: 10px 40px 20px; 
+	background-color: black; 
+	text-align: center;
+}
+
+h1{
+	text-align: center;
+	color: white;
+	margin: 40px 0px 40px;
+}
+
+div{
+	display: block;
+	padding: 10px;
+}
+
+form label{
+	color: #fff;
+	padding: 0 0 10px;	
+	font-weight: bold;
+	border-radius: 5px; 
+}
+
+.left-col{
+	display: inline-block;
+	padding: 0px 30px 0px;
+}
+
+.center-col{
+	display: inline-block;
+	padding: 0px 30px 0px;
+}
+
+.right-col{
+	display: inline-block;
+	padding: 0px 20px 0px;
+	margin-top: 30 px;
+}
+
+.form-section{
+	text-align: left;
+	display: inline-block;
+	width: 60%;
+	border: 2px solid; 
+	border-radius: 5px;
+	margin: 0 auto; 
+	background-color: #444444;
+}
+
+#submit{
+	background-color: rgba(228, 78, 0, 1);;
+	padding: 6px;
+	width: 150px;
+	color: white;
+	text-weight: bold;
+	border: 2px solid rgba(135, 135, 135, 0.50);
+    border-radius: 4px;
+} 
+
+#submit:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}
+.field{
+	border-radius: 5px;
+	font-size: 1.125rem;
+	background-color: #444444;
+	color: #969696;
+	padding: 14px 10px;
+}

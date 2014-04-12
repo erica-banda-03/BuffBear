@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
+    <script>
+var map;
+var infowindow;
+var service;
+var myLocation;
+
+function initialize() {
+  
+  myLocation = new google.maps.LatLng(30.285779, -97.737954);
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),{
+    center: myLocation,
+    zoom: 15
+  });
+
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: placeLoc
+  });
+
+  var request2 = { reference: place.reference };
+  service.getDetails(request2, function(details, status) {
+      google.maps.event.addListener(marker, 'click', function() { 
+         infowindow.setContent('<span style="padding: 0px; text-align:left" align="left"><h5>' + details.name + '&nbsp; &nbsp; ' + '</h5><p>' + details.formatted_address + '<br />' + details.formatted_phone_number + '<br />' +  '<a  target="_blank" href=' + details.website + '>' + details.website + '</a></p>' ) ;
+         infowindow.open(map, this);
+        });
+  });
+}
+
+function GoogleMap(position) {
+	myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+	var marker = new google.maps.Marker({
+	   map: map,
+	   position: myLocation,
+	   animation: google.maps.Animation.DROP,
+	   title: "This is your location"
+	});
+
+	map.setCenter(myLocation);
+
+	var request = {
+	  location: myLocation,
+          radius: 400,
+          types: ['restaurant']
+        };
+
+
+        infowindow = new google.maps.InfoWindow();
+        service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
+}
+
+function showError() {
+	alert("Location can't be found");
+}
+//execute geolocation
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(GoogleMap, showError);
+}
+else {
+	alert("Your browser does not support Geolocation.");
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+  
+    </script>
+  </head>
+  <body>
+        <div id="map-canvas"></div>
+  </body>
+</html>

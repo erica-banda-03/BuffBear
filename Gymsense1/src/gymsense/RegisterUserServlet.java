@@ -1,42 +1,88 @@
 package gymsense;
 
-import gymsense.dao.GymsenseDAO;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+import gymsense.Dao.GymsenseDAO;
+import gymsense.time.DailySlots;
+import gymsense.time.TimeSlot;
+import gymsense.time.WeeklySlots;
 
 import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.googlecode.objectify.ObjectifyService;
 
 
 public class RegisterUserServlet extends HttpServlet{
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	static {
+		
+		ObjectifyService.register(DailySlots.class);
+	} 
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	    
 	    String firstName = req.getParameter("firstName");
 	    String lastName = req.getParameter("lastName");
 	    String email = req.getParameter("email");
-	    //String password = req.getParameter("password");
 	    String birthMonth = req.getParameter("month");
 	    String birthDay = req.getParameter("day");
 	    String birthYear = req.getParameter("year");
-	    //Integer birthDay = Integer.parseInt(req.getParameter("day"));
-	    //Integer birthYear = Integer.parseInt(req.getParameter("year"));
 	    String sex = req.getParameter("sex");
 	    String workoutType = req.getParameter("workout");
 	    String intensity = req.getParameter("intensity");
 	    String heightInches = req.getParameter("inches");
 	    String weight = req.getParameter("weight");
-	    //Integer weight = Integer.parseInt(req.getParameter("weight"));
-	    //Integer heightInches = Integer.parseInt(req.getParameter("inches"));
 	    String heightFeet= req.getParameter("feet");
 	    
-	    //Integer heightFeet = Integer.parseInt(req.getParameter("feet"));
 	    GymsenseDAO.INSTANCE.add(firstName, lastName, email, birthMonth, birthDay, birthYear, sex, workoutType, intensity, weight, heightInches, heightFeet);
 	    
-	    resp.sendRedirect("/scheduler.jsp");
+	    TimeSlot slot0 = new TimeSlot("11:00 pm", "11:30 pm", "Monday");
+	    TimeSlot slot1 = new TimeSlot("11:00 pm", "11:30 pm", "Tuesday");
+	    TimeSlot slot2 = new TimeSlot("11:00 pm", "11:30 pm", "Wednesday");
+	    TimeSlot slot3 = new TimeSlot("11:00 pm", "11:30 pm", "Thursday");
+	    TimeSlot slot4 = new TimeSlot("11:00 pm", "11:30 pm", "Friday");
+	    TimeSlot slot5 = new TimeSlot("11:00 pm", "11:30 pm", "Saturday");
+	    TimeSlot slot6 = new TimeSlot("11:00 pm", "11:30 pm", "Sunday");
+	    DailySlots mon = new DailySlots("Monday", email);
+	    DailySlots tues = new DailySlots("Tuesday", email);
+	    DailySlots wed = new DailySlots("Wednesday", email);
+	    DailySlots thurs = new DailySlots("Thursday", email);
+	    DailySlots fri = new DailySlots("Friday", email);
+	    DailySlots sat = new DailySlots("Saturday", email);
+	    DailySlots sun = new DailySlots("Sunday", email);
+	    mon.add(slot0);
+	    tues.add(slot1);
+	    wed.add(slot2);
+	    thurs.add(slot3);
+	    fri.add(slot4);
+	    sat.add(slot5);
+	    sun.add(slot6);
+	    
+	    ofy().save().entity(mon).now();
+	    ofy().save().entity(tues).now();
+	    ofy().save().entity(wed).now();
+	    ofy().save().entity(thurs).now();
+	    ofy().save().entity(fri).now();
+	    ofy().save().entity(sat).now();
+	    ofy().save().entity(sun).now();
+	    
+	    //ADDED
+	    //Creating instance of WeeklySlot based off of user email
+	    //saving to datastore
+	   // WeeklySlots myWeek = new WeeklySlots();
+//	    ofy().save().entity(myWeek).now();
+	    
+	   req.setAttribute("userEmail", email);
+	   req.getRequestDispatcher("/scheduler.jsp").forward(req, resp);
+	   // resp.sendRedirect("/scheduler.jsp?userEmail=mail");
 	}
 	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		doGet(req, resp);
 	}
 	

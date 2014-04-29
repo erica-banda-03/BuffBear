@@ -7,7 +7,11 @@
 <%@ page import="java.util.Collections" %>
 <%@ page import="com.googlecode.objectify.*" %>
 <%@ page import="gymsense.Post" %>
-<%@ page import="gymsense.dao.GymsenseDAO" %>
+<%@ page import="gymsense.Dao.GymsenseDAO" %>
+<%@ page import="gymsense.services.PMF" %>
+<%@ page import="javax.jdo.JDOHelper" %>
+<%@ page import="javax.jdo.PersistenceManager" %>
+<%@ page import="javax.jdo.PersistenceManagerFactory" %>
 
  
 <html>
@@ -52,7 +56,7 @@
     <meta charset="utf-8">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
     <script>
-var map;
+var map, map2;
 var infowindow;
 var service;
 var myLocation;
@@ -61,22 +65,35 @@ function initialize() {
   
   myLocation = new google.maps.LatLng(30.285779, -97.737954);
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),{
+  map = new google.maps.Map(document.getElementById('map-canvas1'),{
+    center: myLocation,
+    zoom: 15
+  });
+  
+   map2 = new google.maps.Map(document.getElementById('map-canvas2'),{
     center: myLocation,
     zoom: 15
   });
 
 }
 
-function callback(results, status) {
+function callback1(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
+      createMarker1(results[i]);
     }
   }
 }
 
-function createMarker(place) {
+function callback2(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker2(results[i]);
+    }
+  }
+}
+
+function createMarker1(place) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
@@ -92,7 +109,57 @@ function createMarker(place) {
   });
 }
 
-function GoogleMap(position) {
+function createMarker2(place) {
+
+  var lift = new Array("Gregory Gymnasium","Anna Hiss Gym", "Clark Field", "Recreational Sports Center");
+
+  var placeLoc = place.geometry.location;
+
+  var name = place.name;
+
+  
+
+  for(var j = 0; j < lift.length; j++) { 
+
+       var res = name.match(lift[j]);
+
+       if (res) {
+
+
+
+        var marker = new google.maps.Marker({
+
+          map: map2,
+
+          position: placeLoc
+
+        });
+
+
+
+        var request2 = { reference: place.reference };
+
+        service.getDetails(request2, function(details, status) {
+
+        google.maps.event.addListener(marker, 'click', function() { 
+
+         infowindow.setContent('<span style="padding: 0px; text-align:left" align="left"><h5>' + details.name + '&nbsp; &nbsp; ' + '</h5><p>' + details.formatted_address + '<br />' + details.formatted_phone_number + '<br />' +  '<a  target="_blank" href=' + details.website + '>' + details.website + '</a></p>' ) ;
+
+         infowindow.open(map2, this);
+
+          });
+
+        });
+
+
+
+     }
+
+   }
+
+}
+
+function GoogleMap1(position) {
 	myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
 	var marker = new google.maps.Marker({
@@ -113,7 +180,58 @@ function GoogleMap(position) {
 
         infowindow = new google.maps.InfoWindow();
         service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, callback);
+        service.nearbySearch(request, callback1);
+}
+
+function GoogleMap2(position) {
+
+myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+
+
+var marker = new google.maps.Marker({
+
+  map: map2,
+
+  position: myLocation,
+
+  animation: google.maps.Animation.DROP,
+
+  title: "My Location"
+
+});
+
+
+map2.setCenter(myLocation);
+
+   
+
+var request = {
+
+  location: myLocation,
+
+          radius: 700,
+
+          types:['gym','university','park']
+
+        };
+
+
+
+
+
+    infowindow = new google.maps.InfoWindow();
+
+service = new google.maps.places.PlacesService(map2);
+
+//service1 = new google.maps.places.PlacesService(map2);
+
+    service.nearbySearch(request, callback2);
+
+//service1.nearbySearch(request1, callback2);
+
+
+
 }
 
 function showError() {
@@ -121,7 +239,8 @@ function showError() {
 }
 //execute geolocation
 if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(GoogleMap, showError);
+	navigator.geolocation.getCurrentPosition(GoogleMap1, showError);
+	navigator.geolocation.getCurrentPosition(GoogleMap2, showError);
 }
 else {
 	alert("Your browser does not support Geolocation.");
@@ -135,96 +254,101 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
   <body>
   
-  	<h1>
- 		<p1> #Gymsense </p1>
-  	</h1>
+  	
+  		
+ 	
+	   <div id="header">
+	 		<p1> #Gymsense<img src="http://i58.tinypic.com/33cwt49.png" id="towerImg2"> </p1>
+	  	</div>
+	  	
+  	</div>
  
 <div id="menu">
-<div id="menuButton">
-	<a href="#workoutOfTheDay" class="menuStyle">Today's Workout</a>
-</div>
-<div id="menuButton">
-	<a href="#foodMap" class="menuStyle">Restaurants</a>
-</div>
-<div id="menuButton">
-	<a href="#facilityMap" class="menuStyle">Workout Facilities</a>
-</div>
-<div id="menuButton">
-	<a href="#calendar" class="menuStyle">Calendar</a>
-</div>
-<div id="menuButton">
-	<a href="scheduler.jsp" class="menuStyle">Update Free Times</a>
-</div>
-<div id="menuButton">
-	
-	<%
-    UserService userService = UserServiceFactory.getUserService();
-    User user = userService.getCurrentUser();
-    %>
-    <%
-    
-    if (user != null) {
-      pageContext.setAttribute("user", user);
-	%>		
-			<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="menuStyle" id="signin">Sign out</a>	
+	<div id="menuButton">
+		<a href="#workoutOfTheDay" class="menuStyle">Today's Workout</a>
+	</div>
+	<div id="menuButton">
+		<a href="#foodMap" class="menuStyle">Restaurants</a>
+	</div>
+	<div id="menuButton">
+		<a href="#facilityMap" class="menuStyle">Workout Facilities</a>
+	</div>
+	<div id="menuButton">
+		<a href="#calendar" class="menuStyle">Calendar</a>
+	</div>
+	<div id="menuButton">
+		<a href="scheduler.jsp" class="menuStyle">Update Free Times</a>
+	</div>
+	<div id="menuButton">
+		<a href="settings.jsp" class="menuStyle">Settings</a>
+		<!--<img src="https://cdn2.iconfinder.com/data/icons/simplus-network-and-mobile-devices/157/Layer_12-01-512.png"> -->
+	</div>
+	<div id="menuButton">
 		
-	<%
-    } else {
-	%>
-
-		<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="menuStyle" id="signin">Sign In</a>
-
-	<%
-    }
-	%>
-	
-</div>
-
+		<%
+		
+	    UserService userService = UserServiceFactory.getUserService();
+	    User userEmail = userService.getCurrentUser();
+	    %>
+	    <% 
+	    if (userEmail != null) {
+	      pageContext.setAttribute("user", userEmail);
+	      gymsense.User person = GymsenseDAO.INSTANCE.getuser(userEmail.getEmail());	
+		  //out.print("hello" + person.getFirstName());
+		%> 	
+				<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="menuStyle" id="signin">Sign out</a>	
+		<%
+	    } else {
+		%>
+			<a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="menuStyle" id="signin">Sign In</a>
+		<%
+	    }
+		%>
+		
+	</div>
 
 </div>
 
 <div id="mainImage">
-	<img src="http://i.usatoday.net/sports/gallery/2008/03/23/s080323_texas.jpg" id="hookEm">
+	<img src="http://i61.tinypic.com/2dj0yrr.jpg" id="hookEm">
 </div>
 
 
-<h2>About Gymsense</h2>
+<div id="workouts">
+	<h2><a id="workoutOfTheDay">This Week's Workout Plan</a></h2>
+	<%
+		gymsense.User person = GymsenseDAO.INSTANCE.getuser(userEmail.getEmail()); %>
+		<b>Monday:</b>
+	 	<% out.println(person.getMwork());%><br><br>
+		<b>Tuesday:</b>
+		<% out.println(person.getTwork());%><br><br>
+		<b>Wednesday:</b>
+		<% out.println(person.getWwork());%><br><br>
+		<b>Thursday:</b>
+		<% out.println(person.getThwork());%><br><br>
+		<b>Friday:</b>
+		<% out.println(person.getFwork());%><br><br>
+		<b>Saturday:</b>
+		<% out.println(person.getSwork());%><br><br>
+		<b>Sunday:</b>
+		<% out.println(person.getSSwork());%><br>
 
-<div>
-	<h2><a id="workoutOfTheDay">Today's Workout</a></h2>
-	<p>here's your workout..</p> <br>  
  </div> 
        
  <div >
 	<h2><a id="foodMap">Restaurants Near You</a></h2>
-	<div id="map-canvas"></div>
+	<div id="map-canvas1"></div> 
 </div>   
 
 <div>
 	<h2><a id="facilityMap">Workout Facilities Near You</a></h2>
-	another map goes here ~~~
+	<div id="map-canvas2"></div> 
 </div>          
     
 <div>
 	<h2><a id="calendar">Calendar</a></h2>
-	<p>here's your calendar..</p>    
+	<p>Calendar coming soon.</p>    
 </div>       		
-			
-				<div id= "subscription" >
-				<form name="subscribe" action="/subscribers" onsubmit="return validateForm()" method="get">
-					<input type="button" value="Subscribe" class="button" onclick="showmessage()"/>
-					<input type="hidden" type="text" name="email" placeholder='Email Address' id="email" style="height:30px">
-					<input type="hidden" type="text" name="user" placeholder='Name' id="user" style="height:30px">
-					<input type="submit" style="visibility:hidden" value="Submit" id="sub"/>
-				</form>
-				</div>
-				<div id= "subscription">
-				<form name="unsubscribe" action="/unsubscribe" onsubmit="return validateForm2()" method="get">
-					<input type="button" value="Unsubscribe" class="button" onclick="remove1()"/>
-					<input type="hidden" type="text" name="rem" placeholder='Email Address' id="rem" style="height:30px">
-					<input type="submit" style="visibility:hidden" value="Remove Me" id="remove"/>
-				</form>
-				</div>
  		
   </body>
 </html>

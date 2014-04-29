@@ -1,4 +1,11 @@
 package gymsense.time;
+/**
+ * Majority of this code comes from the Testing Tutorial
+ * Credit: Dr. KIM (?) 
+ * Added code to suit it to the project needs
+ * @author EE461L
+ */
+
 public class TimeParser {
    private static final int MINS_PER_HR = 60;
    private static final int SECS_PER_MIN = 60;
@@ -7,20 +14,21 @@ public class TimeParser {
    private static final int MAX_HRS = 23;
    private static final int MIN_MINS = 0;
    private static final int MAX_MINS = 59;
-   private static final int MIN_SECS = 0;
-   private static final int MAX_SECS = 59; // ignore leap seconds
+  // private static final int MIN_SECS = 0;
+   //private static final int MAX_SECS = 59; // ignore leap seconds
    
    private static int hr=0;
    private static int mins=0;
-   private static String AM_PM="";
+   private static String AM_PM="none";
    
    /**
     * String must be of the form 00:00 XX for us to parse it correctly 
-    * @param time
-    * @return
+    * Note: XX can stand for either "AM" or "PM"
+    * @param time as a string
+    * @return time in minutes as an int 
     * @throws NumberFormatException
     */
-   public static int parseTimeToSeconds(String time) throws NumberFormatException {
+   public static void parseTime(String time) throws NumberFormatException {
        // Normalize the input (trim whitespace and make lower case)
        time = time.trim().toLowerCase();
        
@@ -28,33 +36,36 @@ public class TimeParser {
        if (firstColon == -1) {
            throw new NumberFormatException("Unrecognized time format");
        }
-
-       int secondColon = time.indexOf(':', firstColon+1);
-       if (secondColon == -1) {
-           throw new NumberFormatException("Unrecognized time format");
-       }
        
        // Interpret everything up to the first colon as the hour
-       int hours = Integer.valueOf(time.substring(0, firstColon));
+        hr = Integer.valueOf(time.substring(0, firstColon));
        // Interpret everything between the two colons as the minute
-       int minutes = Integer.valueOf(time.substring(firstColon+1, secondColon));
+       mins = Integer.valueOf(time.substring(firstColon+1, firstColon+3));
        // Interpret the two characters after the second colon as the seconds
-       int seconds = Integer.valueOf(time.substring(secondColon+1, secondColon+3));
-       
+     
        // Adjust hours if 'pm' specified
        if (time.contains("pm")) {
-           hours += 12;
-       } else if (time.contains("am") && hours == 12) {
-            hours = 0;
-        }
-       
-       // Range check the values
-       if ((hours < MIN_HRS || hours > MAX_HRS) ||(minutes < MIN_MINS || minutes > MAX_MINS) ||
-           (seconds < MIN_SECS || seconds > MAX_SECS)) {
-               throw new IllegalArgumentException("Unacceptable time specified");
+           AM_PM = new String("pm");
+       } else if (time.contains("am")) {
+           AM_PM = new String("am");
+       }
+       else {
+    	   throw new IllegalArgumentException("Unacceptable time specified");
        }
 
-       // Calculate number of seconds since midnight
-       return (((hours * MINS_PER_HR) + minutes) * SECS_PER_MIN) + seconds;
+       // Range check the values
+       if ((hr < MIN_HRS || hr > MAX_HRS) ||(mins < MIN_MINS || mins > MAX_MINS)) {
+               throw new IllegalArgumentException("Unacceptable time specified");
+       }
    }
+   public static int getHour(){
+	   return hr;
+   }
+   public static int getMinutes(){
+	   return mins;
+   }
+   public static String getAMPM(){
+	   return AM_PM;
+   }
+   
 }

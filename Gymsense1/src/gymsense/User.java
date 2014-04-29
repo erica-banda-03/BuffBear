@@ -1,11 +1,17 @@
 package gymsense;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import gymsense.time.DailySlots;
+import gymsense.time.TimeSlot;
+import gymsense.time.WeeklySlots;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.Embedded;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -16,24 +22,23 @@ public class User implements Serializable{
 	Key email;	
 	private String firstName;
 	private String lastName;
-	private String password;
 	private String heightFeet;
 	private String heightInches;
 	private String weight;
-	//private int birthYear;
 	private String birthYear;
 	private String birthDay;
 	private String birthMonth;
 	private String workoutType;
 	private String sex;
 	private String intensity;
-	
-	private String time;
-	
-	private Schedule schedule;
-	private Plan plan;
-	private Location location;
-	
+	private String Mwork;
+	private String Twork;
+	private String Wwork;
+	private String Thwork;
+	private String Fwork;
+	private String Swork;
+	private String SSwork;
+
 	
 	public User(){}
 	
@@ -41,7 +46,6 @@ public class User implements Serializable{
 		this.setEmail(email);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		//this.setPassword(password);
 		this.setBirthMonth(birthMonth);
 		this.setBirthDay(birthDay);
 		this.setBirthYear(birthYear);
@@ -52,14 +56,14 @@ public class User implements Serializable{
 		this.setSex(sex);
 		this.setWorkoutType(workoutType);
 		this.setIntensity(intensity);
-		this.setSchedule(null);
-		this.setPlan(null);
-		this.location = null;
-		this.time = null;
-	}
-	
-	public void setTime(String time){
-		this.time = time;
+		this.setMwork("No Workout");
+		this.setTwork("No Workout");
+		this.setWwork("No Workout");
+		this.setThwork("No Workout");
+		this.setFwork("No Workout");
+		this.setSwork("No Workout");
+		this.setSSwork("No Workout");
+		
 	}
 	
 	public void setEmail(Key address){
@@ -124,7 +128,6 @@ public class User implements Serializable{
 	}
 
 	public void setHeightFeet(String heightFeet) {
-		//this.heightFeet = Integer.parseInt(heightFeet);
 		this.heightFeet = heightFeet;
 	}
 
@@ -141,7 +144,6 @@ public class User implements Serializable{
 	}
 
 	public void setBirthYear(String birthYear) {
-		//this.birthYear = Integer.parseInt(birthYear);
 		this.birthYear = birthYear;
 	}
 
@@ -162,22 +164,18 @@ public class User implements Serializable{
 		this.birthDay = birthDay;
 	}
 
-	public Schedule getSchedule() {
-		return schedule;
+/*	public WeeklySlots getWeekSlots() {
+		return this.week;
 	}
 
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
+	public void setWeekSlots(WeeklySlots week) {
+		this.week = week;
 	}
-
-	public Plan getPlan() {
-		return plan;
+	
+	public Boolean addTimeSlot(String day, TimeSlot slot){
+		return week.addSlot(day, slot);
 	}
-
-	public void setPlan(Plan plan) {
-		this.plan = plan;
-	}
-
+	*/
 	public String getIntensity() {
 		return intensity;
 	}
@@ -185,5 +183,76 @@ public class User implements Serializable{
 	public void setIntensity(String intensity) {
 		this.intensity = intensity;
 	}
-	
+
+	public void setWorkouts(String day, String work){
+		if (day.equals("Monday")){
+			this.Mwork = work;
+		}
+		else if (day.equals("Tuesday")){this.Twork = work;}
+		else if (day.equals("Wednesday")){this.Wwork = work;}
+		else if (day.equals("Thursday")){this.Thwork = work;}
+		else if (day.equals("Friday")){this.Fwork = work;}
+		else if (day.equals("Saturday")){this.Swork = work;}
+		else if (day.equals("Sunday")){this.SSwork = work;}
+	}
+	public String getAllWorkouts(){
+		return Mwork+Twork+Wwork+Thwork+Fwork+Swork+SSwork;
+	}
+	public String getMwork() {
+		return Mwork;
+	}
+
+	public void setMwork(String mwork) {
+		Mwork = mwork;
+	}
+
+	public String getTwork() {
+		return Twork;
+	}
+
+	public void setTwork(String twork) {
+		Twork = twork;
+	}
+
+	public String getWwork() {
+		return Wwork;
+	}
+
+	public void setWwork(String wwork) {
+		Wwork = wwork;
+	}
+
+	public String getThwork() {
+		return Thwork;
+	}
+
+	public void setThwork(String thwork) {
+		Thwork = thwork;
+	}
+
+	public String getFwork() {
+		return Fwork;
+	}
+
+	public void setFwork(String fwork) {
+		Fwork = fwork;
+	}
+
+	public String getSwork() {
+		return Swork;
+	}
+
+	public void setSwork(String swork) {
+		Swork = swork;
+	}
+
+	public String getSSwork() {
+		return SSwork;
+	}
+
+	public void setSSwork(String sSwork) {
+		SSwork = sSwork;
+	}
+
+
 }

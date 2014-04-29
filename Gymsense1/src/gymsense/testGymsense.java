@@ -28,7 +28,7 @@ public class testGymsense {
 	@Test
 	public void workoutTesting() {
 		Workout workoutTest = new Workout(duration15, IntensityLight, typeCardio);
-		workoutTest.setUpWorkout();
+	//	workoutTest.setUpWorkout();
 		workoutTest.getName();
 		assertEquals("#lightCardio15Sense", workoutTest.getName());
 	}
@@ -36,7 +36,7 @@ public class testGymsense {
 	@Test
 	public void workoutTesting2() {
 		Workout workoutTest = new Workout(duration30, IntensityLight, typeWeightloss);
-		workoutTest.setUpWorkout();
+	//	workoutTest.setUpWorkout();
 		workoutTest.getName();
 		assertEquals("#lightWeightLoss30Sense", workoutTest.getName());
 	}
@@ -44,21 +44,10 @@ public class testGymsense {
 	@Test
 	public void workoutTestingError() {
 		Workout workoutTest = new Workout(duration30, IntensityErr, typeError);
-		workoutTest.setUpWorkout();
+	//	workoutTest.setUpWorkout();
 		workoutTest.getName();
 		assertEquals("Error: Incorrect input parameter", workoutTest.getName());
 	}
-	
-	@Test
-	public void testRemoveUser(){
-		
-	}
-	
-	@Test
-	public void testAddUser(){
-		
-	}
-	
 
 	
 }

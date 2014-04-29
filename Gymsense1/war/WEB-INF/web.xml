@@ -82,16 +82,58 @@
     
     <servlet>
         <servlet-name>TimeServlet</servlet-name>
-        <servlet-class>gymsense.TimeServlet</servlet-class>
+        <servlet-class>gymsense.time.TimeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TimeServlet</servlet-name>
         <url-pattern>/timeSelection</url-pattern>
     </servlet-mapping>
   
+	<servlet>
+        <servlet-name>createWorkoutServlet</servlet-name>
+        <servlet-class>gymsense.createWorkoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createWorkoutServlet</servlet-name>
+        <url-pattern>/createWorkout</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    <servlet-name>CalendarSampleAuthCallbackServlet</servlet-name>
+    <servlet-class>com.google.api.services.samples.calendar.appengine.CalendarSampleAuthCallbackServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalendarSampleAuthCallbackServlet</servlet-name>
+    <url-pattern>/oauth2callback</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>CalendarSampleServlet</servlet-name>
+    <servlet-class>com.google.api.services.samples.calendar.appengine.CalendarSampleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CalendarSampleServlet</servlet-name>
+    <url-pattern>/calendar-sampleservlet</url-pattern>
+  </servlet-mapping>
+    
+  
   <!-- Default page to serve -->
   <welcome-file-list>
         <welcome-file>landingpage.jsp</welcome-file>
     </welcome-file-list>
+
+
+<!-- The following ensures the user will be logged in to a Google Account by
+    redirecting them to the sign-in page if not.
+    For more information, see https://developers.google.com/appengine/docs/java/config/webxml -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>any</web-resource-name>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
 
 </web-app>

@@ -1,4 +1,4 @@
-package gymsense;
+package gymsense; 
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -22,7 +22,7 @@ import javax.servlet.http.*;
 import com.googlecode.objectify.ObjectifyService;
 
 import gymsense.User;
-import gymsense.dao.GymsenseDAO;
+import gymsense.Dao.GymsenseDAO;
 
 
 public class CronServlet extends HttpServlet{

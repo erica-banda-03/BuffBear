@@ -1,26 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page session="true" %>
 
 <html>
   <head>
   	<title>Gymsense SignUp</title>
   	<link type="text/css" rel="stylesheet" href="signup.css" />
-  	
-  	
+  	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+ 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+ 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+ 	<link rel="stylesheet" href="/resources/demos/style.css">
+ 	 
   	<script type="text/javascript">
   	function validateForm(){
 		var a=document.forms["register"]["firstName"].value;
 		var b=document.forms["register"]["lastName"].value;
 		var c=document.forms["register"]["email"].value;
 		var d=document.forms["register"]["weight"].value;
+		var e=document.forms["register"]["month"].value;
+		var f=document.forms["register"]["day"].value;
+		var g=document.forms["register"]["year"].value;
+		var h=document.forms["register"]["inches"].value;
+		var i=document.forms["register"]["feet"].value;
 		
-		
-		if (a==null || a=="" || b==null || c==null || d==null ){
+		if (a==null || a=="" || b==null || c==null || d==null || e=="" || f=="" || g=="" || h=="" || i=="" ){
 		  alert("All fields must be filled out!");
 		  return false;
 		}
 	}
   	</script>
+  	
+ 
+  <script>
+  $(function() {
+    $( document ).tooltip();
+  });
+  </script>
+  <style>
+  .ui-tooltip {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 1px;
+    color: #3679AE;
+  }
+  </style>
   	
   </head>
   
@@ -33,18 +56,22 @@
 				<div class="left-col">
 					<label for="user-firstname">Name</label>
 					<div class="field">
-						<input type="text"  name="firstName" id="user-firstname" placeholder="First" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="">
+						<input type="text"  required name="firstName" id="user-firstname" placeholder="First" value="">
 					</div>
 					
 					<div class="field">	
-						<input type="text" name="lastName" id="user-lastname" placeholder="Last" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;^.{2,255}$&quot;}" value="" >
+						<input type="text" required name="lastName" id="user-lastname" placeholder="Last" value="" >
 					</div>
 					
 					<label for="user-email">Email Address</label>
-					(must be a gmail account)
+					
 					<div class="field">
-						<input type="text" name="email" id="user-email" placeholder="me@gmail.com" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;email&quot;}" value="" autocomplete="off">
+						<input type="text" required name="email" id="user-email"  placeholder="me@gmail.com" title="This must be a gmail account" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;email&quot;}" value="" autocomplete="off">			
 					</div>
+					
+					<% 
+						//session.setAttribute("userEmail", request.getParameter("email"));
+				 	%>
 					
 					<!--  
 					<label for="password">Password</label>
@@ -56,7 +83,7 @@
 					-->
 					
 					<label for="weight">Weight</label>
-					<div class="field"><input type="text" name="weight" id="weight" placeholder="in pounds" value="">
+					<div class="field"><input type="text" required name="weight" id="weight" placeholder="in pounds" value="">
 					</div>
 				
 				
@@ -65,7 +92,7 @@
 				<div class="birthday">
 				
 				<select id="month" name="month">
-					<option></option>
+					<option value = ""></option>
 					<option value = "1">January</option>
 					<option value = "2">February</option>
 					<option value = "3">March</option>
@@ -82,7 +109,7 @@
 				
 				<!-- Day dropdown -->
 			<select name="day" id="day" size="1">
-				<option></option>
+				<option value = ""></option>
 			    <option value="01">01</option>
 			    <option value="02">02</option>
 			    <option value="03">03</option>
@@ -117,7 +144,7 @@
 			</select>
 				
 				<select id="year" name="year">
-					<option></option>
+					<option value = ""></option>
 					<option value="2007">2007</option>
 					<option value="2006">2006</option>
 					<option value="2005">2005</option>
@@ -193,20 +220,20 @@
 			<div class="center-col">	
 				<div>
 				<label for="workout">Workout Type</label><br>
-				<input type="radio" name="workout" value="Cardio">Cardio<br>
-				<input type="radio" name="workout" value="Weight-loss">Weight-loss<br>
-				<input type="radio" name="workout" value="Weightlifting">Weightlifting
+				<input type="radio" required name="workout" class="radio1" value="Cardio">Cardio<br>
+				<input type="radio" name="workout" class="radio1" value="Weight-loss">Weight-loss<br>
+				<input type="radio" name="workout" class="radio1" value="Weightlifting">Weightlifting
 				</div>
 				
 				<div>
 				<label for="intensity">Workout Intensity</label><br>
-				<input type="radio" name="intensity" value="">Heavy<br>
+				<input type="radio" required name="intensity" value="Heavy">Heavy<br>
 				<input type="radio" name="intensity" value="Light">Light<br>
 				</div>
 				
 				<div>
 				<label for="sex">Sex</label><br>
-				<input type="radio" name="sex" value="male">Male<br>
+				<input type="radio" required name="sex" value="male">Male<br>
 				<input type="radio" name="sex" value="female">Female<br>
 				<input type="radio" name="sex" value="other">Other
 				</div>
@@ -214,7 +241,7 @@
 				<div>
 				<label for="Height">Height</label><br>
 				<select id="feet" name="feet">
-				<option></option>
+				<option value = ""></option>
 				<option value = "3">3</option>
 				<option value = "4">4</option>
 				<option value = "5">5</option>
@@ -224,7 +251,7 @@
 				</select>
 				
 				<select id="inches" name="inches" >
-				<option></option>
+				<option value = ""></option>
 				<option value = "0">0</option>
 				<option value = "1">1</option>
 				<option value = "2">2</option>
@@ -237,74 +264,9 @@
 				<option value = "9">9</option>
 				<option value = "10">10</option>
 				<option value = "11">11</option>
-				<option value = "12">12</option> 
 				</select>
 				</div>
 				</div>
-			
-		<!--	<div class="time">
-				<label for="time">Workout Time Availability</label><br>
-				
-				<label for "monHour">Monday</label><br>
-				<select id=" name="monHour" class>
-				<option></option>
-				<option value = "1">1</option>
-				<option value = "2">2</option>
-				<option value = "3">3</option>
-				<option value = "4">4</option>
-				<option value = "5">5</option>
-				<option value = "6">6</option>
-				<option value = "7">7</option>
-				<option value = "8">8</option>
-				<option value = "9">9</option>
-				<option value = "10">10</option>
-				<option value = "11">11</option>
-				<option value = "12">12</option> 
-				</select>
-				
-				<select id=" name="monMinute" class>
-				<option></option>
-				<option value = "15">15</option>
-				<option value = "30">30</option>
-				<option value = "45">45</option>
-				</select>
-				
-				<select id=" name="monMinute" class>
-				<option></option>
-				<option value = "AM">AM</option>
-				<option value = "PM">PM</option>
-				</select>
-				
-				<select id=" name="tuesHour" class>
-				<option></option>
-				<option value = "1">1</option>
-				<option value = "2">2</option>
-				<option value = "3">3</option>
-				<option value = "4">4</option>
-				<option value = "5">5</option>
-				<option value = "6">6</option>
-				<option value = "7">7</option>
-				<option value = "8">8</option>
-				<option value = "9">9</option>
-				<option value = "10">10</option>
-				<option value = "11">11</option>
-				<option value = "12">12</option> 
-				</select>
-				
-				<select id=" name="tuesMinute" class>
-				<option></option>
-				<option value = "15">15</option>
-				<option value = "30">30</option>
-				<option value = "45">45</option>
-				</select>
-				
-				<select id=" name="monMinute" class>
-				<option></option>
-				<option value = "AM">AM</option>
-				<option value = "PM">PM</option>
-				</select>
-				
-			</div> -->
 				
 				<div class="right-col">
 					<div>

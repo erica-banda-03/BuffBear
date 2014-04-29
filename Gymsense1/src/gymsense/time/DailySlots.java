@@ -1,21 +1,40 @@
 package gymsense.time;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
-public class DailySlots {
-	private ArrayList<TimeSlot> timeSlots;
-	//private int day;
+import javax.jdo.annotations.EmbeddedOnly;
+import javax.persistence.Embedded;
 
-	public DailySlots(){
-		timeSlots = new ArrayList<TimeSlot>(3);
-		//this.day = day;  
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Embed;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Serialize;
+
+@Entity
+public class DailySlots implements Serializable {
+	
+	@Id String emailDay;
+	String day;
+	@Embedded
+	private ArrayList<TimeSlot> timeSlots;
+	
+//Constructor
+	private DailySlots(){}
+	
+	public DailySlots(String day, String email){
+		this.day= day;
+		this.emailDay = email + day;
+		timeSlots = new ArrayList<TimeSlot>(3); 
 	}
+//DailySlots Methods
 	/**
 	 * Adds to the list of time slots, true if successful
 	 * false if not successful 
 	 * @param TimeSlot slot
-	 * @return BOOLEAN
+	 * @return true if added successfully
 	 */
 	public boolean add(TimeSlot slot){
 		Iterator<TimeSlot> iter = timeSlots.iterator();
@@ -25,6 +44,7 @@ public class DailySlots {
 		if (slot.getStartHour() > slot.getEndHour()){	return false;}
 		if (slot.getStartMinutes() <0 || slot.getStartMinutes() >= 60){return false;}
 		if (slot.getEndMinutes() < 0 || slot.getEndMinutes() >= 60){return false;}
+		
 		//No Timeslots less than 15 mins long
 		if (slot.getDuration() < 15){return false;}
 		
@@ -42,19 +62,31 @@ public class DailySlots {
 			}
 		}
 		timeSlots.add(slot);
-		return true;
 		
-		
+		//SORT them to make them pretty for when we do toString()
+		Collections.sort(timeSlots);
+		return true;	
 	}
-	
-	/*public TimeSlot getLargestTimeSlot(){
-		
-	}*/
+	/**
+	 * Finds and returns the largest timeSlot
+	 * if no time slots found, null is returns
+	 * @return TimeSlot or null
+	 */
+	public TimeSlot getLargestTimeSlot(){
+		if (timeSlots.size() == 0)
+			return null;
+		int indexOfLargest=0;
+		for (int i = 0; i < timeSlots.size(); i++){
+			if (timeSlots.get(i).getDuration() > timeSlots.get(indexOfLargest).getDuration()){
+				indexOfLargest = i;
+			}
+		}
+		return timeSlots.get(indexOfLargest);
+	}
 	
 	public int getNumberOfSlots(){
 		return timeSlots.size();
 	}
-	
 	/**
 	 * Deletes all time slots previously entered
 	 */
@@ -62,27 +94,15 @@ public class DailySlots {
 		timeSlots.clear();
 	}
 	/**
-	 * Returns the day as a String
-	 * @return Day as a string
-	 */
-	/*public String getDay(){
-		switch(this.day){
-		case 1: return "Monday";
-		case 2: return "Tuesday";
-		case 3: return "Wednesday";
-		case 4: return "Thursday";
-		case 5: return "Friday";
-		case 6: return "Saturday";
-		case 7: return "Sunday";
-		}
-		return "no day";
-		
-	}*/
-	
+ 	* Returns true if no timeslots have been added
+ 	* @return true if empty
+ 	*/
 	public boolean isEmpty(){
 		return timeSlots.isEmpty();
 	}
-	
+	/**
+	 * Representation of a DailySlots as a string
+	 */
 	@Override
 	public String toString(){
 		StringBuilder str = new StringBuilder();

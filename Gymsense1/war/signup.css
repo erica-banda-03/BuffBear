@@ -1,4 +1,3 @@
-
 body{
 	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 	margin: 10px 40px 20px; 
@@ -8,7 +7,7 @@ body{
 
 h1{
 	text-align: center;
-	color: white;
+	color: #fff;
 	margin: 40px 0px 40px;
 }
 
@@ -18,10 +17,14 @@ div{
 }
 
 form label{
-	color: #fff;
+	color: black;
 	padding: 0 0 10px;	
 	font-weight: bold;
 	border-radius: 5px; 
+}
+
+p1{
+	color: white;
 }
 
 .left-col{
@@ -47,26 +50,32 @@ form label{
 	border: 2px solid; 
 	border-radius: 5px;
 	margin: 0 auto; 
-	background-color: #444444;
+	background-color: #828282;
+}
+
+
+.radio1{
+	color: white;
 }
 
 #submit{
-	background-color: rgba(228, 78, 0, 1);;
+	background-color: rgba(228, 78, 0, 1);
 	padding: 6px;
 	width: 150px;
-	color: white;
-	text-weight: bold;
-	border: 2px solid rgba(135, 135, 135, 0.50);
+	color: black;
+	font-weight: bold;
+	border: 0;
     border-radius: 4px;
 } 
 
 #submit:hover {    
     background-color: rgba(135, 135, 135, 0.50);
 }
+
 .field{
 	border-radius: 5px;
 	font-size: 1.125rem;
-	background-color: #444444;
+	
 	color: #969696;
 	padding: 14px 10px;
 }

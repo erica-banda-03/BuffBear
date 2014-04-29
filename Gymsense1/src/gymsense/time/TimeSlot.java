@@ -1,11 +1,18 @@
-/**
- * 
+/** 
  * @author eriklopez
  *
  */
 package gymsense.time;
 
-public class TimeSlot {
+import com.googlecode.objectify.annotation.Embed;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
+@Embed
+public class TimeSlot implements Comparable<TimeSlot>{
+	
+	@Id String Time;
 	
 	private int duration; //in minutes
 	private int startHour;
@@ -14,9 +21,16 @@ public class TimeSlot {
 	private int endHour;
 	private int endMinutes;
 	private String endAMPM;
-/*int startHour, int startMinutes, String startAMPM, int endHour, int endMinutes, String endAMPM*/	
-	public TimeSlot(int startHour, int startMinutes, String startAMPM, int endHour, int endMinutes, String endAMPM){
+	private String day;
+
+	/*-------------------CONSTRUCTORS--------------------*/
+	
+	private TimeSlot(){	
+	}
+	
+	public TimeSlot(int startHour, int startMinutes, String startAMPM, int endHour, int endMinutes, String endAMPM, String day){
 		//startAMPM if it is "PM", then endAMPM must be PM too for this to work properly
+		this.day = day;
 		this.startHour = startHour;
 		this.startMinutes = startMinutes;
 		this.startAMPM=startAMPM;
@@ -29,11 +43,35 @@ public class TimeSlot {
 		if (endAMPM.equalsIgnoreCase("pm") || (this.startHour == 12 && this.startAMPM.equalsIgnoreCase("pm"))){
 			this.endHour+=12;
 		}
+		//time being set, and the id that will be used for accessing from Dailyslot 
+		this.Time = Integer.toString(startHour)+Integer.toString(startMinutes)+Integer.toString(endHour)+Integer.toString(endMinutes) + day;
 		duration = Math.abs(((this.endHour*60)+this.endMinutes)-((this.startHour*60)+this.startMinutes));
 		
 	}
 
-	public int getDuration(){return duration;}
+	public TimeSlot(String startTime, String endTime, String day){
+		TimeParser.parseTime(startTime);
+		this.day = day;
+		this.startHour = TimeParser.getHour();
+		this.startMinutes = TimeParser.getMinutes();
+		this.startAMPM = TimeParser.getAMPM();
+		if (startAMPM.equalsIgnoreCase("pm") && !(this.startHour == 12 && this.startAMPM.equalsIgnoreCase("pm")) || (this.startHour == 12 && this.startAMPM.equalsIgnoreCase("am"))){
+			this.startHour+=12;
+		}
+		
+		TimeParser.parseTime(endTime);
+		this.endHour = TimeParser.getHour();
+		this.endMinutes = TimeParser.getMinutes();
+		this.endAMPM = TimeParser.getAMPM();
+		if (endAMPM.equalsIgnoreCase("pm") || (this.startHour == 12 && this.startAMPM.equalsIgnoreCase("pm"))){
+			this.endHour+=12;
+		}
+		
+		duration = Math.abs(((this.endHour*60)+this.endMinutes)-((this.startHour*60)+this.startMinutes));
+		this.Time = startTime+endTime+day;
+	}
+	
+	// toStrings
 	
 	/**
 	 * @return duration of the time slot in hrs and minutes
@@ -54,13 +92,14 @@ public class TimeSlot {
 	/**
 	 * @return timeSlot in the format "Start: hh:mm AM/PM End: hh:mm AM/PM"
 	 */
+	@Override
 	public String toString(){
 		int startTemp= startHour;
 		int endTemp= endHour;
-		if (startAMPM.equalsIgnoreCase("pm")){
+		if (startAMPM.equalsIgnoreCase("pm") && !(this.startHour == 12 && this.startAMPM.equalsIgnoreCase("pm")) || (this.startHour == 12 && this.startAMPM.equalsIgnoreCase("am"))){
 			startTemp = startHour-12;
 		}
-		if (endAMPM.equalsIgnoreCase("pm")){
+		if (endAMPM.equalsIgnoreCase("pm") && !(this.endHour == 12 && this.endAMPM.equalsIgnoreCase("pm")) || (this.endHour == 12 && this.endAMPM.equalsIgnoreCase("am"))){
 			endTemp = endHour-12;
 		}
 		
@@ -68,6 +107,8 @@ public class TimeSlot {
 				+" End: "+endTemp+":"+String.format("%02d",endMinutes)+endAMPM;
 	}
 
+	//Getters
+	
 	/**
 	 * @return the startHour
 	 */
@@ -104,7 +145,47 @@ public class TimeSlot {
 	public String getEndAMPM() {
 		return endAMPM;
 	}
+	/**
+	 * Returns duration of timeslot in minutes
+	 * @return duration
+	 */
+	public int getDuration(){
+		return duration;
+	}
+
+	public int getStartTimeInMinutes(){
+		return (this.startHour*60)+this.startMinutes;
+	}
+	public int getEndTimeInMinutes(){
+		return (this.endHour*60)+this.endMinutes;
+	}
+	//To Enable Sorting
 	
-	
+	@Override
+	/**
+	 * Returns positive if this instance is greater than the parameter
+	 * Zero if they're the same (which shouldn't happen)
+	 * Negative if this one is earlier than the parameter
+	 * @param that
+	 * @return positive(>), 0(==), or negative (<) 
+	 */
+	public int compareTo(TimeSlot that) {
+		if (this.startAMPM.equals("am") && that.startAMPM.equals("pm")){
+			return -1;
+		}
+		else if (this.startAMPM.equals("pm") && that.startAMPM.equals("am")){
+			return 1;
+		}
+		
+		if (this.startHour < that.startHour){
+			return -1;
+		}
+		else if (this.startHour > that.startHour){
+			return 1;
+		}
+
+		return 0;
+	}
+
 	
 }

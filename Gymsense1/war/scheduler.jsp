@@ -26,11 +26,12 @@ $(function(){ $('#endTime').timepickr({convention:12}); });
 
 <div id="title">
 <h1>Select your workout times</h1>
+</div>
 <%
 	String email = (String)request.getAttribute("userEmail");
 	//out.println(email);
 %>
-</div>
+<!-- code to display daily slots goes here -->
 
 	<div id="scheduleBox">
 	<div id="left_Col">
@@ -60,7 +61,7 @@ $(function(){ $('#endTime').timepickr({convention:12}); });
 	</div>
 	
 	<div>
-	<input type="submit" value="Save" id="submit" class="button"/>
+	<input type="submit" value="Save" name="submit" id="submit" class="button"/>
 	</div>
 
 	<input name="userEmail" type="hidden" value="${userEmail}"/>
@@ -69,7 +70,7 @@ $(function(){ $('#endTime').timepickr({convention:12}); });
 	
 	<div id="right_col">
 		<div id="donediv">
-			<form name="makeWorkout" action="/createWorkout" method="post">
+			<form name="makeWorkout" action="/createWorkout?action=save" method="post">
 				<input name="userEmail" type="hidden" value="${userEmail}"/>
 				<input type="submit" value="Done" id="done" class="button"/>
 			</form>

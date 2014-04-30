@@ -26,13 +26,10 @@ static {
 		ObjectifyService.register(DailySlots.class);
 	} 
 	
-	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)  throws IOException, ServletException {
 		//UserService userService = UserServiceFactory.getUserService();
 	    //User user = userService.getCurrentUser();
 	    
-		//Object session = request.getSession();
-	    //String user= (String)pageContext.getAttribute("User", PageContext.REQUEST_SCOPE);
 	    String user = req.getParameter("userEmail");
 	    String dayOfWeek = req.getParameter("day");
 	    String startTime = req.getParameter("startTime");
@@ -40,14 +37,9 @@ static {
 	  
 	  //obtaining current user and retrieving instance from datastore
 	  gymsense.User person = GymsenseDAO.INSTANCE.getuser(user);
-	 // DailySlots day;
 	     
 	  TimeSlot slot = new TimeSlot(startTime, endTime, dayOfWeek);
 	  ofy().save().entity(slot).now();
-	  //WeeklySlots w = new WeeklySlots(user.getEmail());  
-	  
-	 //DailySlots today = new DailySlots(dayOfWeek, user);
-	 //today.add(slot);
 	  
 	  DailySlots today = ofy().load().type(DailySlots.class).id(user+dayOfWeek).get();
 	  today.add(slot);

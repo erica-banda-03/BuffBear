@@ -41,13 +41,7 @@ public class RegisterUserServlet extends HttpServlet{
 	    
 	    GymsenseDAO.INSTANCE.add(firstName, lastName, email, birthMonth, birthDay, birthYear, sex, workoutType, intensity, weight, heightInches, heightFeet);
 	    
-	    TimeSlot slot0 = new TimeSlot("11:00 pm", "11:30 pm", "Monday");
-	    TimeSlot slot1 = new TimeSlot("11:00 pm", "11:30 pm", "Tuesday");
-	    TimeSlot slot2 = new TimeSlot("11:00 pm", "11:30 pm", "Wednesday");
-	    TimeSlot slot3 = new TimeSlot("11:00 pm", "11:30 pm", "Thursday");
-	    TimeSlot slot4 = new TimeSlot("11:00 pm", "11:30 pm", "Friday");
-	    TimeSlot slot5 = new TimeSlot("11:00 pm", "11:30 pm", "Saturday");
-	    TimeSlot slot6 = new TimeSlot("11:00 pm", "11:30 pm", "Sunday");
+	    //TimeSlot slot0 = new TimeSlot("11:00 pm", "11:30 pm", "Monday");
 	    DailySlots mon = new DailySlots("Monday", email);
 	    DailySlots tues = new DailySlots("Tuesday", email);
 	    DailySlots wed = new DailySlots("Wednesday", email);
@@ -55,13 +49,13 @@ public class RegisterUserServlet extends HttpServlet{
 	    DailySlots fri = new DailySlots("Friday", email);
 	    DailySlots sat = new DailySlots("Saturday", email);
 	    DailySlots sun = new DailySlots("Sunday", email);
-	    mon.add(slot0);
-	    tues.add(slot1);
-	    wed.add(slot2);
-	    thurs.add(slot3);
-	    fri.add(slot4);
-	    sat.add(slot5);
-	    sun.add(slot6);
+	    //mon.add(slot0);
+	    //tues.add(slot1);
+	    //wed.add(slot2);
+	    //thurs.add(slot3);
+	    //fri.add(slot4);
+	    //sat.add(slot5);
+	    //sun.add(slot6);
 	    
 	    ofy().save().entity(mon).now();
 	    ofy().save().entity(tues).now();
@@ -71,15 +65,8 @@ public class RegisterUserServlet extends HttpServlet{
 	    ofy().save().entity(sat).now();
 	    ofy().save().entity(sun).now();
 	    
-	    //ADDED
-	    //Creating instance of WeeklySlot based off of user email
-	    //saving to datastore
-	   // WeeklySlots myWeek = new WeeklySlots();
-//	    ofy().save().entity(myWeek).now();
-	    
-	   req.setAttribute("userEmail", email);
-	   req.getRequestDispatcher("/scheduler.jsp").forward(req, resp);
-	   // resp.sendRedirect("/scheduler.jsp?userEmail=mail");
+	    req.setAttribute("userEmail", email);
+	    req.getRequestDispatcher("/scheduler.jsp").forward(req, resp);
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

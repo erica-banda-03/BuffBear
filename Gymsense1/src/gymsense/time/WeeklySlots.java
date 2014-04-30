@@ -22,7 +22,7 @@ public class WeeklySlots implements Iterable<String>{
 	
 	public WeeklySlots(String email){
 		this.email= email;
-		
+		/*
 		week = new LinkedHashMap<String, DailySlots>();
 		week.put("sunday", new DailySlots("sunday", email));
 		week.put("monday", new DailySlots("monday", email));
@@ -30,7 +30,7 @@ public class WeeklySlots implements Iterable<String>{
 		week.put("wednesday", new DailySlots("wednesday", email));
 		week.put("thursday", new DailySlots("thursday",email));
 		week.put("friday", new DailySlots("friday",email));
-		week.put("saturday", new DailySlots("saturday", email));
+		week.put("saturday", new DailySlots("saturday", email)); */
 		
 	}
 	

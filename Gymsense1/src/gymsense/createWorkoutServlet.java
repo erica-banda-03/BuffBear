@@ -19,11 +19,11 @@ public class createWorkoutServlet extends HttpServlet{
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)  throws IOException, ServletException {
 		String user = req.getParameter("userEmail");
+		
+		//add daily slot 
+	  if(req.getParameter("action").equals("save")){
 		String[] weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 		
-		//com.google.appengine.api.users.UserService userService = UserServiceFactory.getUserService();
-	    //com.google.appengine.api.users.User user = userService.getCurrentUser();
-	    
 	  //obtaining current user and retrieving instance from datastore
 	    gymsense.User person = GymsenseDAO.INSTANCE.getuser(user);
 		String intensity = person.getIntensity();
@@ -31,6 +31,7 @@ public class createWorkoutServlet extends HttpServlet{
 	    
 		for (int x=0; x < 7; x++){
 			DailySlots day = ofy().load().type(DailySlots.class).id(user+weekdays[x]).get();
+			req.setAttribute(weekdays[x], day);
 			TimeSlot slot = day.getLargestTimeSlot();
 			
 			if(slot != null && slot.getStartHour() != 23 && slot.getEndHour() != 23){
@@ -41,8 +42,11 @@ public class createWorkoutServlet extends HttpServlet{
 				}
 				//person.setWorkouts(x, tsf.getName()+tsf.createWorkout()+tsf.getTotalWorkoutTime());
 			}
-		 
-	   	    
+	  } 
+	  //remove dailyslot from user's record
+	  else if(req.getParameter("action").equals("remove")){
+		  
+	  }    
 	    //redirect to home sign-in page
 	    resp.sendRedirect("/signIn.jsp");
 	}

@@ -43,7 +43,7 @@ public class CronServlet extends HttpServlet{
 		}
 	}
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+/*	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 		Boolean sendEmail = false;
@@ -88,7 +88,7 @@ public class CronServlet extends HttpServlet{
 		        
 		        */
 		    	
-		    	for (Post post : posts) {
+	/*	    	for (Post post : posts) {
 		    		if(post.getSent() == false){
 		    			strCallResult += post.getUser() + " wrote: \r\n"; 
 		        		strCallResult += post.getTitle() +"\r\n" + post.getContent() +"\r\n";
@@ -120,6 +120,6 @@ public class CronServlet extends HttpServlet{
 		} catch (Exception e) {
 			_log.info("ERROR: Could not send out Email Results response : " + e.getMessage());
 		}
-	}
+	} */
 		
 }

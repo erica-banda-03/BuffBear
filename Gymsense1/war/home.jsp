@@ -6,7 +6,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="com.googlecode.objectify.*" %>
-<%@ page import="gymsense.Post" %>
 <%@ page import="gymsense.Dao.GymsenseDAO" %>
 <%@ page import="gymsense.services.PMF" %>
 <%@ page import="javax.jdo.JDOHelper" %>
@@ -277,7 +276,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		<a href="#calendar" class="menuStyle">Calendar</a>
 	</div>
 	<div id="menuButton">
-		<a href="scheduler.jsp" class="menuStyle">Update Free Times</a>
+		<a href="scheduler.jsp?useremail=${userEmail}" class="menuStyle">Update Free Times</a>
 	</div>
 	<div id="menuButton">
 		<a href="settings.jsp" class="menuStyle">Settings</a>
@@ -292,7 +291,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	    %>
 	    <% 
 	    if (userEmail != null) {
-	      pageContext.setAttribute("user", userEmail);
+	      request.setAttribute("userEmail", userEmail);
 	      gymsense.User person = GymsenseDAO.INSTANCE.getuser(userEmail.getEmail());	
 		  //out.print("hello" + person.getFirstName());
 		%> 	

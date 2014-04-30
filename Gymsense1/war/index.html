@@ -1,9 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
-<title>Time Selection</title>
-
 <link rel="Stylesheet" media="screen" href="css/reset.css" />
 <link rel="Stylesheet" media="screen" href="css/styles.css" />
 <link rel="Stylesheet" media="screen" href="css/ui.core.css" />
@@ -16,12 +13,11 @@
 <script type="text/javascript" src="js/ui.timepickr.js"></script>
 <script>
 $(function(){ $('#startTime').timepickr({convention:12}); });
-$(function(){ $('#endTime').timepickr(); });
+$(function(){ $('#endTime').timepickr({convention:12}); });
 </script>
 </head>
 <body>
 
-<form name="timeSelection" action="/timeSelection" method="post">
 	<label for="day">Day of the Week</label>
 		<select id="day" name="day">
 			<option></option>
@@ -35,13 +31,9 @@ $(function(){ $('#endTime').timepickr(); });
 		</select>
 		
 	<label for="startTime">Start Time</label>
-	<input id="startTime" type="text" value="09:00 am" />
+	<input id="startTime" type="text" value="09:00" />
+	
 	<label for="endTime">End Time</label>
-	<input id="endTime" type="text" value="10:00 am" />
-	
-	
-		<input type="submit" value="Submit" id="submit" />
-	
-	</form>
+	<input id="endTime" type="text" value="10:00" />
 </body>
 </html>

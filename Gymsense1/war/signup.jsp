@@ -69,9 +69,6 @@
 						<input type="text" required name="email" id="user-email"  placeholder="me@gmail.com" title="This must be a gmail account" data-validate="{&quot;required&quot;: true, &quot;format&quot;: &quot;email&quot;}" value="" autocomplete="off">			
 					</div>
 					
-					<% 
-						//session.setAttribute("userEmail", request.getParameter("email"));
-				 	%>
 					
 					<!--  
 					<label for="password">Password</label>

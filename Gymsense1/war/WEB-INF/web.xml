@@ -6,34 +6,6 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
-  <servlet>
-    <servlet-name>GymsenseServlet</servlet-name>
-    <servlet-class>gymsense.GymsenseServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>GymsenseServlet</servlet-name>
-    <url-pattern>/gymsense</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-        <servlet-name>OfyGymsenseServlet</servlet-name>
-        <servlet-class>gymsense.OfyGymsenseServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OfyGymsenseServlet</servlet-name>
-        <url-pattern>/ejblog/ofy</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>home</servlet-name>
-        <servlet-class>gymsense.OfyGymsenseServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>home</servlet-name>
-        <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -78,6 +50,15 @@
     <servlet-mapping>
         <servlet-name>RegisterUserServlet</servlet-name>
         <url-pattern>/RegisterUser</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>gymsense.SettingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/Settings</url-pattern>
     </servlet-mapping>
     
     <servlet>

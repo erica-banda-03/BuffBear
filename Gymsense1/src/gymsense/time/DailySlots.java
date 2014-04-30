@@ -1,11 +1,11 @@
 package gymsense.time;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
 import javax.jdo.annotations.EmbeddedOnly;
+import javax.jdo.annotations.Serialized;
 import javax.persistence.Embedded;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -14,20 +14,19 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Serialize;
 
 @Entity
-public class DailySlots implements Serializable {
-	
+public class DailySlots implements Iterable<TimeSlot> {
 	@Id String emailDay;
 	String day;
-	@Embedded
-	private ArrayList<TimeSlot> timeSlots;
-	
+	@Serialize private ArrayList<TimeSlot> timeSlots;
 //Constructor
-	private DailySlots(){}
+	private DailySlots(){ 
+	}
 	
 	public DailySlots(String day, String email){
-		this.day= day;
+		this.day =day;
 		this.emailDay = email + day;
-		timeSlots = new ArrayList<TimeSlot>(3); 
+		//timeSlots = new ArrayList<TimeSlot>(3); 
+		timeSlots = new ArrayList<TimeSlot>();
 	}
 //DailySlots Methods
 	/**
@@ -119,5 +118,14 @@ public class DailySlots implements Serializable {
 		
 		return str.toString();
 		//return timeSlots.toString();
+	}
+	public boolean deleteTimeSlot(TimeSlot slot){
+		return timeSlots.remove(slot);
+	}
+	
+	@Override
+	public Iterator<TimeSlot> iterator() {
+		Iterator<TimeSlot> iter = timeSlots.iterator();
+		return iter;
 	}
 }

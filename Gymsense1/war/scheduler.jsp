@@ -1,4 +1,8 @@
 <%@ page session="true" %>
+<%@ page import="com.googlecode.objectify.*" %>
+<%@ page import="gymsense.time.DailySlots" %>
+<%@ page import="gymsense.time.TimeParser" %>
+<%@ page import="java.util.List" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,22 +24,32 @@
 $(function(){ $('#startTime').timepickr({convention:12}); });
 $(function(){ $('#endTime').timepickr({convention:12}); });
 </script>
+
+<script type="text/javascript">
+  	function validateForm(){
+		var start =document.forms["timeSelection"]["startTime"].value;
+		var end =document.forms["timeSelection"]["endTime"].value;
+		var a = 0;
+		if (a==null){
+		  alert("Invalid time selected!");
+		  return false;
+		}
+	}
+  	</script>
+
 </head>
 <body>
-
 
 <div id="title">
 <h1>Select your workout times</h1>
 </div>
 <%
 	String email = (String)request.getAttribute("userEmail");
-	//out.println(email);
+	out.println(email);
 %>
-<!-- code to display daily slots goes here -->
-
 	<div id="scheduleBox">
 	<div id="left_Col">
-	<form name="timeSelection" action="/timeSelection" method="post">
+	<form name="timeSelection" action="/timeSelection" onsubmit="return validateForm()" method="post">
 	<div>	
 		<label for="day">Day of the Week</label><br></br>
 		<select id="day" name="day">
@@ -56,21 +70,62 @@ $(function(){ $('#endTime').timepickr({convention:12}); });
 	</div>
 	<div>
 		<label for="endTime">End Time</label><br></br>
-	<input id="endTime" name="endTime" type="text" value="10:00 am" class="demo" style="width: 84px; "/>
+	<input id="endTime" name="endTime" type="text" value="10:00 am" class="demo" style="width: 82px; "/>
 		
 	</div>
 	
-	<div>
+	
+<% //ensures that times that are being input are valid!
+
+/*String start //change this
+	   String end = //change this
+	   String startAP, endAP;
+	   int startH, startMin; 
+	   int endH, endMin;
+	   
+		TimeParser.parseTime(start);
+		startH = TimeParser.getHour();
+		startMin = TimeParser.getMinutes();
+		startAP = TimeParser.getAMPM();
+		if ((startAP.equalsIgnoreCase("pm") && !(startH == 12 && startAP.equalsIgnoreCase("pm"))) || (startH == 12 && startAP.equalsIgnoreCase("am"))){
+			startH+=12;
+		}
+		
+		TimeParser.parseTime(end);
+		endH = TimeParser.getHour();
+		endMin = TimeParser.getMinutes();
+		endAP = TimeParser.getAMPM();
+		if ((endAP.equalsIgnoreCase("pm") && !(endH == 12 && endAP.equalsIgnoreCase("pm"))) || (endH == 12 && endAP.equalsIgnoreCase("am"))){
+			endH+=12;
+		}
+		
+		if (TimeParser.verifyTimes(startH, startMin, endH, endMin)) { */%>
+	
+			
+	<% /*	}
+		
+		else {
+			
+			out.print("Incorrect times. Please select other times.");
+		}
+		*/
+	%>
+	
+<% //view the time slots already added. 
+
+
+
+%>	<div>
 	<input type="submit" value="Save" name="submit" id="submit" class="button"/>
 	</div>
-
+		
 	<input name="userEmail" type="hidden" value="${userEmail}"/>
 	</form>
 	</div>	
 	
 	<div id="right_col">
 		<div id="donediv">
-			<form name="makeWorkout" action="/createWorkout?action=save" method="post">
+			<form name="makeWorkout" action="/calendar-sampleservlet" method="post">
 				<input name="userEmail" type="hidden" value="${userEmail}"/>
 				<input type="submit" value="Done" id="done" class="button"/>
 			</form>

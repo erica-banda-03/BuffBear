@@ -1,0 +1,71 @@
+body{
+	text-align: center;
+	margin-top: 200px;
+	background-color: black;
+}
+
+#scheduleBox{
+	text-align: left;
+	margin: 200px auto 0px;
+	width: 65%;
+	height: 160px;
+	background-color: #828282;
+	display: block;
+	padding: 70px;
+	border-radius: 3px;
+}
+
+div{
+	text-align: center;
+	display: inline-block;
+	padding: 20px;
+}
+
+#left_col{
+	display: inline-block;
+	width: 70%;
+	height: 100%;
+}
+#right_col{
+	display: inline-block;
+	height: 100%;
+	width: 30%;
+	
+}
+
+#title{
+	 margin-top: 40px;
+	 color: #fff;
+	 font-size: 35px;
+}
+
+#day{
+	border-radius: 2px;
+}
+
+.button{
+	background-color: rgba(228, 78, 0, 1);
+	padding: 2px 30px;
+	color: #000000;
+	text-decoration: none;
+	border: 0;
+    border-radius: 2px;
+    font-size: 16px;
+    display: block;
+    font-weight: bold;
+    margin: 0px 10px 0px;
+}
+
+#done{
+	background-color: #3679AE;
+	padding: 4px 20px;
+}
+#doneDiv{
+	position: absolute; 
+	bottom: 0; 
+	right: 0;
+}
+
+.button:hover {    
+    background-color: rgba(135, 135, 135, 0.50);
+}

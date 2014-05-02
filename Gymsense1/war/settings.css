@@ -1,0 +1,67 @@
+body{
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+ 	margin-top: 20px;
+ 	margin-left: 450px;
+	background-color: black; 
+
+}
+
+h1{
+	color: #fff;
+	margin: 40px 0px 40px;
+}
+
+div{
+	text-align: center;
+	display: block;
+	padding: 10px;
+}
+
+#updateInfo{
+	padding: 0px 20px;
+}
+form label{
+	color: black;
+	padding: 0px 0px 10px;	
+	font-weight: bold;
+}
+
+#formBody{
+	background-color:#828282;
+	text-align: center;
+	border-radius: 5px; 
+	width: 50%;
+}
+
+#formPiece{
+	padding: 10px 30px;
+}
+
+#update{
+	text-align: center;
+}
+#delete{
+	text-align: center;
+}
+
+.button{
+	background-color: rgba(228, 78, 0, 1);
+	padding: 6px;
+	width: 150px;
+	color: black;
+	font-weight: bold;
+    border-radius: 4px;
+} 
+
+.button:hover {    
+    background-color: rgba(228, 78, 0, 0.80);
+    border: 2px solid rgba(228, 78, 0, 1);
+    color: white;
+}
+
+.field{
+	border-radius: 5px;
+	font-size: 1.125rem;
+	color: #969696;
+	padding: 14px 10px;
+}

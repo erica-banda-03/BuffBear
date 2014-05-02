@@ -1,0 +1,54 @@
+body {
+	font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: -8px;
+	background-color: #3679AE; 
+	color: white;
+	background-image: url("http://i62.tinypic.com/nq4tnr.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	text-align: center;
+}
+
+p1 {
+	color: white;
+	font-size: 50px;
+	font-weight: bold;
+	margin-top: 100px;
+}
+
+div {
+	margin-top: 330px;
+	display: block;
+	text-align: center;
+}
+
+.button {
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 3px 15px;
+	width: 200px;
+	color: rgba(255, 158, 73, 1);
+	text-decoration: none;
+	font-size: 22px;
+	font-weight: bold;
+	height: 35px;
+    line-height: 35px;
+    display: block;
+	border: 2px solid white;
+	border-radius: 2px;
+}
+
+.button:hover {
+	background-color: rgba(255, 158, 49, 0.6);
+	color: white;
+	border: 3px solid rgba(255, 158, 73, 0.7);
+}
+
+#signup {
+	margin-left: 595px;
+}
